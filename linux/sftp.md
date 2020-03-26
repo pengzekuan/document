@@ -36,3 +36,22 @@ usermod –g sftp_users admin
     ForceCommand internal-sftp
   ```
 - AllowUsers 如果原先设置了此参数，则需要把sftp用户加入其中
+
+# 开启日志
+
+```
+Subsystem       sftp    /usr/lib64/ssh/sftp-server -l INFO -f AUTH
+```
+
+```
+vim /etc/rsyslog.conf
+# 增加一行
+auth,authpriv.*                                         /var/log/sftp.log
+```
+
+# 重启服务
+
+```
+service sshd restart
+service rsyslog restart
+```
